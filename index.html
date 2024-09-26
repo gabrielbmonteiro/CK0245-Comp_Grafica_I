@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Trabalho 2 - Computação Gráfica</title>
+    <style>
+        /* Remove qualquer margem e esconde as barras de rolagem */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+        }
+
+        /* O Canvas agora é o fundo inteiro da tela */
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1; /* Fica no fundo */
+        }
+
+        /* Menu flutuante ainda mais discreto */
+        .menu {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            width: 240px;
+            background-color: rgba(10, 10, 10, 0.3); /* Mais transparente */
+            backdrop-filter: blur(12px); /* Efeito de vidro mais forte */
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 2; /* Fica por cima do canvas */
+            pointer-events: none; /* Cliques atravessam o menu direto para o 3D */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8); /* Ajuda a ler caso o fundo 3D seja claro */
+        }
+
+        .menu h2 {
+            margin-top: 0;
+            font-size: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            padding-bottom: 10px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 13px;
+            line-height: 2;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .menu li {
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .key {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 11px;
+            color: #fff;
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .hidden-textures {
+            display: none;
+        }
+    </style>
+</head>
+
+<body onload="main()">
+    
+    <canvas id="webgl"></canvas>
+
+    <script>
+        const canvas = document.getElementById('webgl');
+        // Define a resolução interna do desenho igual ao tamanho real da tela
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    </script>
+    
+    <div class="menu">
+        <h2>Controles</h2>
+        <ul>
+            <li><span class="key">↑</span> Move Frente</li>
+            <li><span class="key">↓</span> Move Trás</li>
+            <li><span class="key">←</span> Rotaciona Esq</li>
+            <li><span class="key">→</span> Rotaciona Dir</li>
+            <li><span class="key">W</span> Inclina Cima</li>
+            <li><span class="key">S</span> Inclina Baixo</li>
+            <br>
+            <li><span class="key">T</span> TV (Liga/Desl)</li>
+            <li><span class="key">O</span> Armário</li>
+            <li><span class="key">1</span> Afasta Cadeira</li>
+            <li><span class="key">2</span> Puxa Cadeira</li>
+        </ul>
+    </div>
+
+    <div class="hidden-textures">
+        <img id="leather" src="textures/leather.jpg">
+        <img id="floor" src="textures/laminate.jpg">
+        <img id="wall" src="textures/wallpaper.jpg">
+        <img id="wood" src="textures/wood.jpg">
+        <img id="mat" src="textures/mat.jpg">
+    </div>
+
+    <script src="lib/webgl-utils.js"></script>
+    <script src="lib/webgl-debug.js"></script>
+    <script src="lib/utils.js"></script>
+    <script src="lib/matrix.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
